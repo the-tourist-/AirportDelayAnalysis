@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Network1" numsamples="1000" discsamples="10000">
+	<nodes>
+		<cpt id="Events">
+			<state id="Rain" />
+			<state id="Rain_Thunderstorm" />
+			<state id="Fog" />
+			<state id="Fog_Snow" />
+			<state id="Fog_Rain_Thunderstorm" />
+			<state id="Snow" />
+			<state id="None" />
+			<probabilities>0.2525252525252525 0.07070707070707072 0.0101010101010101 0.0101010101010101 0.0101010101010101 0.0202020202020202 0.6262626262626262</probabilities>
+		</cpt>
+		<cpt id="Temperature" dynamic="plate">
+			<state id="Temp_0_4C" />
+			<state id="Temp_5_9C" />
+			<state id="Temp_10_14C" />
+			<state id="Temp_15_19C" />
+			<state id="Temp_20_24C" />
+			<state id="Temp_25_29C" />
+			<parents>Events</parents>
+			<probabilities>0.03228679853771686 0.2256065115213135 0.4522157186493883 0.1293477332722197 0.1293477332722197 0.03119550474714194 0 0.1111022220444409 0.3333366667333347 0.1111122222444449 0.2222244444888898 0.2222244444888898 0 0 0 1 0 0 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0 1 0 0 0 0 0 1 0 0 0 0 0.01312625250501002 0.07905811623246492 0.2234468937875751 0.4218436873747494 0.157314629258517 0.1052104208416835</probabilities>
+		</cpt>
+		<cpt id="Delay" dynamic="plate">
+			<state id="Normal" />
+			<state id="Low_Delay" />
+			<state id="High_Delay" />
+			<parents>Temperature</parents>
+			<probabilities>0.6666666666666666 0.3333333333333333 0 0.31 0.23 0.46 0.3838383838383838 0.4646464646464646 0.1515151515151516 1 0 0 0.3333333333333333 0.3333333333333333 0.3333333333333334 0.3333333333333333 0.3333333333333333 0.3333333333333334</probabilities>
+		</cpt>
+	</nodes>
+	<dynamic numslices="130">
+		<cpt id="Delay" order="1">
+			<parents>Delay</parents>
+			<probabilities>0.666666667 0.333333333 0 0.3333333333 0.666666667 0 0 0.33333333 0.666666667 0.31 0.23 0.46 0.23 0.31 0.46 0.46 0.23 0.31 0.38383838 0.46464646 0.15151515 0.46464646 0.38383838 0.15151515 0.15151515 0.46464646 0.38383838 1 0 0 0 1 0 0 0 1 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333 0.3333333333333333</probabilities>
+		</cpt>
+	</dynamic>
+	<extensions>
+		<genie version="1.0" app="GeNIe 2.0.3717.0" name="Network1" faultnameformat="nodestate">
+			<plate leftwidth="120" rightwidth="120">208 298 808 598</plate>
+			<diagautoformat target="e5f6f7" targetnr="e5f6f7" observation="ffff80" observationnr="ffff00" auxiliary="ffffff" />
+			<node id="Events">
+				<name>Events</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>474 176 570 248</position>
+			</node>
+			<node id="Temperature">
+				<name>Average Temp</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>454 388 591 437</position>
+			</node>
+			<node id="Delay">
+				<name>Delay</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>483 507 561 543</position>
+			</node>
+		</genie>
+	</extensions>
+</smile>

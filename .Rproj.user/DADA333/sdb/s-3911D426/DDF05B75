@@ -1,0 +1,18 @@
+{
+    "contents" : "require(caret)\nrequire(e1071)\n\nDF1 <- read.csv(\"~/GitHub/AirportDelayAnalysis/Casefile-Data/Martijn_GeNIe_Exp.csv\")\nDF2 <- read.csv(\"~/GitHub/AirportDelayAnalysis/Casefile-Data/DelayData.csv\")\nnames(DF1) <- c(\"Wind\", \"Direction\", \"Delay\")\nModel1 <- train(Delay ~ Direction + Delay, \n                data = DF1, \n                method = \"rf\", \n                tuneLength = 9,\n                preProcess = c(\"center\", \"scale\", \"YeoJohnson\", \"knnImpute\"),\n                trControl = trainControl(method = \"oob\")\n)\n\nModel2 <- train(Delay ~ Direction + Delay, \n                data = DF2, \n                method = \"rf\", \n                tuneLength = 9,\n                preProcess = c(\"center\", \"scale\", \"YeoJohnson\", \"knnImpute\"),\n                trControl = trainControl(method = \"oob\")\n)\nprint(Model1$results)\nprint(Model2$results)\n\nprint(confusionMatrix(predict(Model2, DF2), DF2$Delay))\n",
+    "created" : 1428336197863.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "125300336",
+    "id" : "DDF05B75",
+    "lastKnownWriteTime" : 1428354911,
+    "path" : "~/GitHub/AirportDelayAnalysis/RandomForest.R",
+    "project_path" : "RandomForest.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

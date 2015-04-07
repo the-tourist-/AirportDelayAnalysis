@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Unnamed" numsamples="1000" discsamples="10000">
+	<nodes>
+		<cpt id="date">
+			<state id="State_20_05_2010" />
+			<state id="State__unobserved" />
+			<probabilities>0.6666666666666666 0.3333333333333333</probabilities>
+		</cpt>
+		<cpt id="ice">
+			<state id="YES" />
+			<state id="State__unobserved" />
+			<probabilities>0.6666666666666666 0.3333333333333333</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 2.0.3717.0" name="CaseFile_Genie_WxFLT_Ice" faultnameformat="nodestate">
+			<node id="date">
+				<name>date</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>10 10 82 58</position>
+			</node>
+			<node id="ice">
+				<name>ice</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>10 74 82 122</position>
+			</node>
+		</genie>
+	</extensions>
+</smile>

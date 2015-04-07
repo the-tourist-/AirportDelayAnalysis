@@ -1,0 +1,25 @@
+{
+    "contents" : "",
+    "created" : 1428336157816.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "12B495DA",
+    "lastKnownWriteTime" : 7011605692497750387,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "vbismhuqfs",
+        "caption" : "Martijn_GeNIe_Exp",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=Martijn_GeNIe_Exp&cache_key=vbismhuqfs",
+        "displayedObservations" : 120,
+        "environment" : "",
+        "object" : "Martijn_GeNIe_Exp",
+        "totalObservations" : 120,
+        "variables" : 3
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

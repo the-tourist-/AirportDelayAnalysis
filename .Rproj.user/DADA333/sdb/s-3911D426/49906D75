@@ -1,0 +1,18 @@
+{
+    "contents" : "require(bnlearn)\ndata(learning.test)\nres = gs(learning.test)\nplot(res)\n## highlight node B and related arcs.\nplot(res, highlight = \"B\")\n## highlight B and its Markov blanket.\nplot(res, highlight = c(\"B\", mb(res, \"B\")))\n## a more compact plot.\npar(oma = rep(0, 4), mar = rep(0, 4), mai = rep(0, 4),\n    plt = c(0.06, 0.94, 0.12, 0.88))\nplot(res)\n",
+    "created" : 1428364468034.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3837000574",
+    "id" : "49906D75",
+    "lastKnownWriteTime" : 1428364543,
+    "path" : "~/GitHub/AirportDelayAnalysis/bnlearnExample.R",
+    "project_path" : "bnlearnExample.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

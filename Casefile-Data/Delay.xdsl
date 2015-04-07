@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Network1" numsamples="1000" discsamples="10000">
+	<nodes>
+		<cpt id="Delay">
+			<state id="Normal" />
+			<state id="Low_Delay" />
+			<state id="High_Delay" />
+			<probabilities>0.3500000000122088 0.3833333333314056 0.2666666666563854</probabilities>
+		</cpt>
+		<cpt id="direction">
+			<state id="N" />
+			<state id="NNE" />
+			<state id="NE" />
+			<state id="ENE" />
+			<state id="E" />
+			<state id="ESE" />
+			<state id="SE" />
+			<state id="SSE" />
+			<state id="S" />
+			<state id="SSW" />
+			<state id="SW" />
+			<state id="WSW" />
+			<state id="W" />
+			<state id="WNW" />
+			<state id="NW" />
+			<state id="NNW" />
+			<parents>Delay</parents>
+			<probabilities>0.07142857116231616 1.534650030415691e-009 0.09523809766637496 0.1190476191176838 0.04761904817499314 0.02380952385976569 0.04761904729512713 0.07142857094269069 0 0.04761904729512713 0.04761904729512713 0.09523809459025426 0.09523809459025426 0.09523809459025426 0.1190476182378178 0.02380952364756356 0.021739130480773 0.04347826166368866 0.02173913231176521 0.04347826124397699 0.0652173915839717 0.0434782608160094 0.08695652135997883 0.02173913033999471 0.02173913033999471 0.06521739101998413 0.04347826067998942 0.1304347820399683 0.06521739101998413 0.1304347820399683 0.152173912379963 0.04347826067998942 0.03125000002649261 0.03125000496625936 0.03125001075664984 3.305134390044831e-009 0.1250000001110947 0.06249999920009759 0.06249999840298014 0.03124999920149007 0.03124999920149007 0.03124999920149007 0.03124999920149007 0.09374999760447021 0.1249999968059603 0.1249999968059603 0.1249999968059603 0.06249999840298014</probabilities>
+		</cpt>
+		<cpt id="Wind">
+			<state id="s6_11" />
+			<state id="s12_18" />
+			<state id="s19_25" />
+			<state id="s26_32" />
+			<state id="s33_37" />
+			<parents>Delay</parents>
+			<probabilities>0.2857142839974601 0.4285714272402099 0.1904761923556803 0.04761904820332483 0.04761904820332483 0.326086955245232 0.3695652167952845 0.2173913054352086 0.08695652194212683 5.821479701260078e-010 0.2812499936649783 0.4374999947712559 0.1875000071361763 0.09375000101602996 3.411559717404271e-009</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 2.0.5494.1" name="Network1" faultnameformat="nodestate">
+			<diagautoformat target="e5f6f7" targetnr="e5f6f7" observation="ffff80" observationnr="ffff00" auxiliary="ffffff" />
+			<node id="Wind">
+				<name>Wind</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>652 631 789 680</position>
+				<barchart active="true" />
+			</node>
+			<node id="Delay">
+				<name>Delay</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>566 398 644 434</position>
+				<barchart active="true" />
+			</node>
+			<node id="direction">
+				<name>Wind Direction</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>387 629 524 678</position>
+				<barchart active="true" />
+			</node>
+		</genie>
+	</extensions>
+</smile>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Unnamed" numsamples="1000" discsamples="10000">
+	<nodes>
+		<cpt id="flight_number">
+			<state id="CPZ5695" />
+			<state id="State__unobserved" />
+			<probabilities>0.8571428571428571 0.1428571428571429</probabilities>
+		</cpt>
+		<cpt id="aircraft">
+			<state id="Embraer_175__twin_jet___E170_Q___track_or_photos_" />
+			<state id="State__unobserved" />
+			<probabilities>0.8571428571428571 0.1428571428571429</probabilities>
+		</cpt>
+		<cpt id="destination">
+			<state id="Minneapolis_St_Paul_Intl__KMSP___track_or_info_" />
+			<state id="San_Antonio_Intl__KSAT___track_or_info_" />
+			<probabilities>0.4285714285714286 0.5714285714285714</probabilities>
+		</cpt>
+		<cpt id="origin">
+			<state id="Minneapolis_St_Paul_Intl__KMSP___track_or_info_" />
+			<state id="Newark_Liberty_Intl__KEWR___track_or_info_" />
+			<parents>destination</parents>
+			<probabilities>0.25 0.75 0.8 0.2</probabilities>
+		</cpt>
+		<cpt id="average_arrival">
+			<state id="State_03_53PM_CST" />
+			<state id="State_04_53PM_CDT" />
+			<state id="State_12_23PM_CST" />
+			<parents>origin</parents>
+			<probabilities>0.5 0.3333333333333333 0.1666666666666667 0.2 0.2 0.6000000000000001</probabilities>
+		</cpt>
+		<cpt id="average_departure">
+			<state id="State_01_25PM_CST" />
+			<state id="State_02_25PM_CDT" />
+			<state id="State_10_34AM_EST" />
+			<parents>average_arrival</parents>
+			<probabilities>0.6000000000000001 0.2 0.2 0.25 0.5 0.25 0.2 0.2 0.6000000000000001</probabilities>
+		</cpt>
+		<cpt id="route">
+			<state id="GAYEL_J95_BUF_YWT_J63_TVC_J522_GRB_EAU8__Decode_" />
+			<state id="GAYEL_J95_CFB_J95_BUF_YWT_J63_TVC_J522_GRB_EAU8__Decode_" />
+			<state id="ORSKY4_OVR_J21_ICT_J21_ACT_MARCS9__Decode_" />
+			<state id="ORSKY4_OVR_J21_ICT_J21_IRW_J21_ACT_MARCS9__Decode_" />
+			<parents>average_departure</parents>
+			<probabilities>0.1666666666666667 0.1666666666666667 0.5 0.1666666666666667 0.2 0.2 0.2 0.4 0.3333333333333333 0.3333333333333333 0.1666666666666667 0.1666666666666667</probabilities>
+		</cpt>
+		<cpt id="scheduled_departure">
+			<state id="State_02_28PM_CDT" />
+			<state id="State_02_42PM_CST" />
+			<state id="State_02_44PM_CST" />
+			<state id="State_11_42AM_EST" />
+			<parents>average_departure</parents>
+			<probabilities>0.1666666666666667 0.3333333333333333 0.3333333333333333 0.1666666666666667 0.4 0.2 0.2 0.2 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.5</probabilities>
+		</cpt>
+		<cpt id="actual_departure">
+			<state id="State_02_25PM_CDT" />
+			<state id="State_02_37PM_CST" />
+			<state id="State_02_50PM_CST" />
+			<state id="State_11_55AM_EST" />
+			<state id="State_12_16PM_EST" />
+			<parents>route scheduled_departure</parents>
+			<probabilities>0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.2 0.2 0.2 0.2 0.2 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.2 0.2 0.2 0.2 0.2 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2</probabilities>
+		</cpt>
+		<cpt id="status">
+			<state id="Landed_16_weeks_ago___track_log_and_graph_" />
+			<state id="Landed_17_weeks_ago___track_log_and_graph_" />
+			<state id="Landed_over_a_week_ago___track_log_and_graph_" />
+			<parents>actual_departure</parents>
+			<probabilities>0.25 0.25 0.5 0.25 0.5 0.25 0.5 0.25 0.25 0.25 0.5 0.25 0.5 0.25 0.25</probabilities>
+		</cpt>
+		<cpt id="date">
+			<state id="Tuesday__23_February_2010" />
+			<state id="Wednesday__09_June_2010" />
+			<state id="Wednesday__24_February_2010" />
+			<parents>status</parents>
+			<probabilities>0.2 0.2 0.6000000000000001 0.6000000000000001 0.2 0.2 0.25 0.5 0.25</probabilities>
+		</cpt>
+		<cpt id="duration">
+			<state id="State_2_hours_25_minutes" />
+			<state id="State_2_hours_27_minutes" />
+			<state id="State_2_hours_28_minutes" />
+			<state id="State_2_hours_9_minutes" />
+			<parents>date</parents>
+			<probabilities>0.1666666666666667 0.5 0.1666666666666667 0.1666666666666667 0.2 0.2 0.4 0.2 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.3333333333333333</probabilities>
+		</cpt>
+		<cpt id="scheduled_arrival">
+			<state id="State_01_30PM_CST" />
+			<state id="State_01_32PM_CST" />
+			<state id="State_05_05PM_CDT" />
+			<state id="State_05_22PM_CST" />
+			<state id="State_05_24PM_CST" />
+			<parents>actual_departure</parents>
+			<probabilities>0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667</probabilities>
+		</cpt>
+		<cpt id="actual_arrival">
+			<state id="State_01_22PM_CST" />
+			<state id="State_01_41PM_CST" />
+			<state id="State_04_53PM_CDT" />
+			<state id="State_04_59PM_CST" />
+			<state id="State_05_04PM_CST" />
+			<parents>actual_departure</parents>
+			<probabilities>0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667</probabilities>
+		</cpt>
+		<cpt id="scheduled_speed">
+			<state id="State_428_kts" />
+			<state id="State_429_kts" />
+			<state id="State_435_kts" />
+			<state id="State_440_kts" />
+			<parents>actual_departure</parents>
+			<probabilities>0.2 0.2 0.2 0.4 0.2 0.2 0.4 0.2 0.4 0.2 0.2 0.2 0.2 0.4 0.2 0.2 0.2 0.2 0.4 0.2</probabilities>
+		</cpt>
+		<cpt id="scheduled_altitude">
+			<state id="State_30000_feet" />
+			<state id="State_32000_feet" />
+			<state id="State_34000_feet" />
+			<state id="State_36000_feet" />
+			<state id="State_38000_feet" />
+			<parents>actual_departure</parents>
+			<probabilities>0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.3333333333333333 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.1666666666666667 0.3333333333333333</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 2.0.3717.0" name="CaseFile_Genie1" faultnameformat="nodestate">
+			<diagautoformat target="e5f6f7" targetnr="e5f6f7" observation="ffff80" observationnr="ffff00" auxiliary="ffffff" />
+			<node id="flight_number">
+				<name>flight number</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>10 10 82 58</position>
+			</node>
+			<node id="aircraft">
+				<name>aircraft</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>10 74 82 122</position>
+			</node>
+			<node id="origin">
+				<name>origin</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>106 10 178 58</position>
+			</node>
+			<node id="destination">
+				<name>destination</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>10 138 82 186</position>
+			</node>
+			<node id="route">
+				<name>route</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>394 10 466 58</position>
+			</node>
+			<node id="date">
+				<name>date</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>682 10 754 58</position>
+			</node>
+			<node id="duration">
+				<name>duration</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>778 10 850 58</position>
+			</node>
+			<node id="status">
+				<name>status</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>586 10 658 58</position>
+			</node>
+			<node id="scheduled_departure">
+				<name>scheduled departure</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>394 74 466 122</position>
+			</node>
+			<node id="average_departure">
+				<name>average departure</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>298 10 370 58</position>
+			</node>
+			<node id="actual_departure">
+				<name>actual departure</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>490 10 562 58</position>
+			</node>
+			<node id="scheduled_arrival">
+				<name>scheduled arrival</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>586 74 658 122</position>
+			</node>
+			<node id="average_arrival">
+				<name>average arrival</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>202 10 274 58</position>
+			</node>
+			<node id="actual_arrival">
+				<name>actual arrival</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>586 138 658 186</position>
+			</node>
+			<node id="scheduled_speed">
+				<name>scheduled speed</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>586 202 658 250</position>
+			</node>
+			<node id="scheduled_altitude">
+				<name>scheduled altitude</name>
+				<interior color="ffffff" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>586 266 658 314</position>
+			</node>
+		</genie>
+	</extensions>
+</smile>

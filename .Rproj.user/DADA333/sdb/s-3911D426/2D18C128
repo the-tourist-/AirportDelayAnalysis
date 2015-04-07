@@ -1,0 +1,18 @@
+{
+    "contents" : "require(\"gRain\")\n\nyn <- c(\"yes\", \"no\")\na <- cptable(~asia, values=c(1, 99), levels=yn)\nt.a <- cptable(~tub | asia, values=c(5, 95, 1, 99), levels=yn)\ns <- cptable(~smoke, values=c(5, 5), levels=yn)\nl.s <- cptable(~lung | smoke, values=c(1, 9, 1, 99), levels = yn)\nb.s <- cptable(~bronc | smoke, value=c(6, 4, 3, 7), levels = yn)\ne.lt <- cptable(~either | lung + tub, values=c(1, 0, 1, 0, 1, 0, 0, 1), levels = yn)\nx.e <- cptable(~xray | either, values=c(98, 2, 5, 95), levels = yn)\nd.be <- cptable(~dysp | bronc + either, values=c(9, 1, 7, 3, 8, 2, 1, 9), levels = yn)\n\nplist <- compileCPT(list(a, t.a, s, l.s, b.s, e.lt, x.e, d.be))\nprint(plist)\n",
+    "created" : 1428354997669.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "644597040",
+    "id" : "2D18C128",
+    "lastKnownWriteTime" : 1428364665,
+    "path" : "~/GitHub/AirportDelayAnalysis/gRainExample.R",
+    "project_path" : "gRainExample.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : true,
+    "type" : "r_source"
+}
