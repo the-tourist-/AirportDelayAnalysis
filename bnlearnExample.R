@@ -1,4 +1,5 @@
-require("bnlearn")
+require(bnlearn)
+
 data(learning.test)
 res = gs(learning.test)
 plot(res)

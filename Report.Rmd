@@ -1,0 +1,89 @@
+---
+title: "Airport Delay Preliminary Analysis"
+author: "Graeme Smith"
+date: "Tuesday, April 21, 2015"
+output: pdf_document
+---
+```{r echo=FALSE, message=FALSE, results=FALSE}
+require(caret)
+require(e1071)
+require(magrittr)
+require(car)
+require(xtable)
+require(psych)
+require(randomForest)
+
+DF1 <- read.csv("~/GitHub/AirportDelayAnalysis/Casefile-Data/Martijn_GeNIe_Exp.csv")
+DF2 <- read.csv("~/GitHub/AirportDelayAnalysis/Casefile-Data/DelayData.csv")
+DF <- cbind(DF1, DF2)
+DF[,2] <- NULL
+names(DF) <- c("Wind.Avg", "Delay.Min", "Wind", "Direction", "Delay")
+DF <- with(DF, data.frame(Wind.Avg, Wind, Direction, Delay.Min, Delay))
+DF$DegreesOffNW <- 22.5*c(6, 5, 7, 2, 4, 3, 1, 0, 6, 8, 7, 5, 4, 2, 1, 3)[as.integer(DF1$Direction)]
+DF$DegreesOffNE <- 22.5*c(2, 1, 3, 2, 0, 1, 3, 4, 6, 4, 5, 7, 8, 6, 5, 7)[as.integer(DF1$Direction)]
+DF$Time <- as.numeric(rownames(DF))
+
+PreProcModel <- preProcess(DF[, c("Delay.Min", "Wind.Avg", "DegreesOffNW", "DegreesOffNE", "Time")], c("center", "scale", "knnImpute"))
+DFPP <- predict(PreProcModel, DF[, c("Delay.Min", "Wind.Avg", "DegreesOffNW", "DegreesOffNE", "Time")])
+DFPP$Wind.Interaction <- DFPP$Wind.Avg * DFPP$DegreesOffNW
+PreProcModel2 <- preProcess(DFPP, c("YeoJohnson"))
+DFPP <- predict(PreProcModel2, DFPP)
+DFPP <- as.data.frame(sapply(names(DFPP), function(Column)pnorm(DFPP[, Column])))
+```
+This is a very quick preliminary analysis on the data provided by Gerry to see if it shows any predictive value.  The data consists of `r nrow(DF)` daily data points taken from Newark airport over the spring of 2012.  The raw data consisted of **Delay (in minutes)**, **Wind Speed Range** and **Wind Direction**.
+
+Before doing my own analysis I tried running the original model in the Genie application.  I admit I wasn't familiar with it, so may have made some mistakes.  I tried using the *Validate* function to do *10 fold Cross-Validation* and *Leave One Out Cross Validation*.  These both simulate out-of-sample performance  by dividing the data into multiple training and testing sets and testing on the sets not used in training.  The accuracy in the two cases was 26.7% and 32.5%, below random chance.
+
+In order to initially do a visual inspection of the data I choose to look at the continuous variables rather than the categorized versions since this made visual features more obvious.  I also separated the Wind Direction variable into two axis variables, **Degrees Off NW** and **Degrees Off NE**.  I choose these axes because the wind strength seemed to pickup around the NW axis.  I also added a **Time** variable since the time period chosen went from the end of winter through to the beginning of summer and it is quite possible that Winds or Delays may be worse during winter meaning possible correlations between these could the result of a third seasonal variable.
+
+```{r echo=FALSE, fig.height=5, dpi=150}
+scatterplotMatrix(~Delay.Min + Wind.Avg + DegreesOffNW + DegreesOffNE + Time, data=DF, main="Chart 1. Variable Interactions")
+```
+
+The Diagonal in the *Chart 1* shows the distributions of the data, the circles show the actual data points and the green and red lines are the best fit slope and smoothed best fit.  The top line is the most important since it shows the interaction of each variable with the **Delay**.  The first two things that stand out is the the **Wind (Avg)** is unevenly distributed and heavily skewed.  Also there appears to be a strong correlation between **Wind (Avg)** and **Degrees Off NW**.  So I did some preprocessing of the data to make the data approximately linearly distributed between 0 and 1.  I also created a new variable that captured the interaction between the **Wind (Avg)** and **Degrees Off NW**.  Low values would correspond to high NW Winds, medium values to low wind and high values to medium or high SE winds (although there were no high SE winds).
+
+```{r echo=FALSE, fig.height=6, dpi=300}
+scatterplotMatrix(~Delay.Min + Wind.Avg + DegreesOffNW + DegreesOffNE + Wind.Interaction + Time, data=DFPP, main="Chart 2. Normalised and Pre-processed Variable Interactions")
+```
+
+Visually inspecting the first row of *Chart 2*, there appeared to be little interaction between any of the predictors and **Delay**.  To verify this I also took the correlations between the variables and the delay and tested for significance.
+
+```{r echo=FALSE, results="asis"}
+Cor <- cor(as.matrix(DFPP))
+P <- corr.p(Cor, nrow(DF))$p
+Results <- as.matrix(cbind(Correlation=Cor[1, -1], PValue=P[1, -1]))
+print(xtable(Results, digits=2, caption="Correlation with Delay in Minutes"), comment=FALSE)
+```
+Normally a P-Value under 0.05 or 0.01 would be used to test for significance.  In this case all the P-Values round to 1.00, suggesting no correlation between the variables and **Delay**. 
+  
+Next I tried running some fairly powerful predictive models, including *Random Forests*, *Support Vector Machines*, *C5.0* and *Linear Regression*.  These generally were slightly more accurate than purely random, having Accuracy scores of between around 32% and 43%.  In *Tables 2, 3* and *4* are the statistics for the *Random Forest Model*.  Although it was one of the better performing models with accuracy of 41%, the P-Value of 0.32 does not show statistical significance at the standard 0.01 or 0.05 levels.
+```{r echo=FALSE, warning=FALSE, message=FALSE, error=FALSE,  results="asis"}
+set.seed(1)
+Model <- train(DF$Delay ~ Wind.Avg * DegreesOffNW + Wind.Avg * DegreesOffNE, 
+               data = DFPP, 
+               method = "rf", 
+               tuneLength=4,
+               trControl = trainControl(method = "cv", savePredictions=T)
+)
+BestTune <- Model$results[rownames(Model$bestTune), ]
+Parameters <- names(BestTune)[!(names(BestTune) %in% c(Model$perfNames, paste0(Model$perfNames, "SD")))]
+Predictions <- Model$pred[eval(parse(text=paste(paste0("Model$pred$", Parameters, " == BestTune$", Parameters), collapse=" & "))), ]
+
+ConfusionMatrix <- confusionMatrix(Predictions$pred, Predictions$obs)
+names(ConfusionMatrix$overall) <- gsub("(.)([A-Z])", "\\1 \\2", names(ConfusionMatrix$overall))
+```
+```{r echo=FALSE, results="asis"}
+print(xtable(ConfusionMatrix$table, caption="Confusion Matrix for Random Forest Model"), comment=F)
+```
+  
+```{r echo=FALSE, results="asis"}
+print(xtable(as.matrix(ConfusionMatrix$overall), caption="Overall Statistics for Random Forest Model"), comment=F)
+```
+  
+```{r echo=FALSE, results="asis"}
+#print(xtable(t(ConfusionMatrix$byClass), caption="Statistics by Class for Random Forest Model"), comment=F)
+```
+  
+Lastly, the one thing I didn't get around to doing was creating my own Bayesian Network for doing cross-validation testing due to time constraints, and my belief that it wouldn't add anything more at this stage.
+  
+In conclusion I would say that with the current limited data it is not possible to say whether predicting flight delays is feasible or not.  Going forward I would say priority should be given to showing feasibility and creating a realistic proof of concept model.  This would require a much larger set of data indicators, and across a much longer time-frame, preferably spanning years to compensate for possible seasonal components.

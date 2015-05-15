@@ -12,4 +12,3 @@ d.be <- cptable(~dysp | bronc + either, values=c(9, 1, 7, 3, 8, 2, 1, 9), levels
 
 plist <- compileCPT(list(a, t.a, s, l.s, b.s, e.lt, x.e, d.be))
 print(plist)
-plot(plist)
